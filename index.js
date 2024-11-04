@@ -39,8 +39,10 @@ app.post('/addProduct', async (req, res) => {
     res.redirect('/')
 })
 
-// Default route
-app.get('/', (req, res) => res.send('Hello World!'))
+app.use((err, req, res, next) => {
+    console.error(err.stack); // Logs the error details
+    res.status(500).send('Internal Server Error');
+});
 
 // Start server
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
